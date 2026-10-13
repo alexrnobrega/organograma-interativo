@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<!--
+  ============================================================================
+  ORGANOGRAMA INTERATIVO AUTÔNOMO — SEPOL / PCERJ
+  ----------------------------------------------------------------------------
+  Responsabilidades deste arquivo:
+  - definir a estrutura HTML principal do componente;
+  - carregar o CSS externo;
+  - fornecer os containers usados pelo JavaScript;
+  - definir os controles de visualização e zoom;
+  - definir a estrutura-base do modal hierárquico;
+  - carregar o JavaScript do organograma.
+
+  Arquivos relacionados:
+  - css/organograma.css
+  - js/organograma.js
+  - data/estrutura-organizacional.json
+  ============================================================================
+-->
+
+<html lang="pt-BR">
+  <head>
+    <!--
+      Define a codificação UTF-8 para suportar corretamente:
+      - acentuação;
+      - cedilha;
+      - caracteres especiais;
+      - símbolos utilizados no organograma.
+    -->
+    <meta charset="UTF-8" />
+
+    <!--
+      Torna a página responsiva em dispositivos móveis.
+
+      width=device-width:
+      usa a largura real da tela do dispositivo.
+
+      initial-scale=1:
+      inicia a página sem ampliação ou redução artificial.
+    -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+
+    <!--
+      Título exibido na aba do navegador.
+    -->
+    <title>
+      Estrutura Organizacional — Secretaria de Estado de Polícia Civil do Estado do Rio de Janeiro
+    </title>
+
+    <!--
+      Carrega o arquivo CSS externo responsável por:
+      - cores;
+      - posicionamento;
+      - responsividade;
+      - modal;
+      - visualização vertical;
+      - aparência dos nós;
+      - controles.
+    -->
+    <link
+      rel="stylesheet"
+      href="css/organograma.css"
+    />
+  </head>
+
+  <body style="margin: 0">
+    <!--
+      ==========================================================================
+      COMPONENTE PRINCIPAL DO ORGANOGRAMA
+      --------------------------------------------------------------------------
+      O ID #sepol-org é utilizado pelo CSS e pelo JavaScript como raiz
+      isolada de todo o componente.
+
+      data-view="original":
+      define que a visualização inicial, em telas maiores, é o organograma
+      tradicional baseado no PDF.
+      ==========================================================================
+    -->
+    <main
+      id="sepol-org"
+      data-view="original"
+    >
+      <!--
+        ========================================================================
+        1. CABEÇALHO INSTITUCIONAL
+        ========================================================================
+      -->
+      <header class="head">
+        <!--
+          Título principal do organograma.
+        -->
+        <strong>
+          ESTRUTURA BÁSICA DA SECRETARIA DE ESTADO
+          DE POLÍCIA CIVIL (SEPOL)
+        </strong>
+
+        <!--
+          Norma de referência da estrutura organizacional.
+        -->
+        <span class="decree">
+          DECRETO Nº 50.383 DE 13 DE JULHO DE 2026
+        </span>
+      </header>
+
+      <!--
+        ========================================================================
+        2. BARRA DE CONTROLES
+        ------------------------------------------------------------------------
+        Contém:
+        - alternância entre organograma original e visualização vertical;
+        - controles de zoom.
+        ========================================================================
+      -->
+      <nav
+        class="controls"
+        aria-label="Controles do organograma"
+      >
+        <!--
+          ----------------------------------------------------------------------
+          2.1. ALTERNÂNCIA ENTRE MODOS DE VISUALIZAÇÃO
+          ----------------------------------------------------------------------
+        -->
+        <div>
+          <!--
+            Exibe o organograma com layout semelhante ao PDF.
+
+            aria-pressed="true":
+            informa às tecnologias assistivas que este modo está ativo.
+          -->
+          <button
+            type="button"
+            class="show-original"
+            aria-pressed="true"
+          >
+            Organograma original
+          </button>
+
+          <!--
+            Exibe a estrutura hierárquica em formato vertical.
+
+            Esse modo é especialmente útil em smartphones.
+          -->
+          <button
+            type="button"
+            class="show-vertical"
+            aria-pressed="false"
+          >
+            Visualização vertical
+          </button>
+        </div>
+
+        <!--
+          ----------------------------------------------------------------------
+          2.2. CONTROLES DE ZOOM
+          ----------------------------------------------------------------------
+          Estes controles afetam somente a visualização original.
+        -->
+        <div class="zoom-controls">
+          <!--
+            Reduz o zoom do organograma.
+          -->
+          <button
+            type="button"
+            class="zoom-out"
+            aria-label="Reduzir zoom"
+          >
+            −
+          </button>
+
+          <!--
+            Valor atual do zoom.
+            O JavaScript atualiza este texto dinamicamente.
+          -->
+          <span class="zoom-value">
+            100%
+          </span>
+
+          <!--
+            Aumenta o zoom do organograma.
+          -->
+          <button
+            type="button"
+            class="zoom-in"
+            aria-label="Ampliar zoom"
+          >
+            +
+          </button>
+
+          <!--
+            Recalcula automaticamente o zoom para ajustar o
+            organograma à largura disponível.
+          -->
+          <button
+            type="button"
+            class="zoom-reset"
+          >
+            Ajustar
+          </button>
+        </div>
+      </nav>
+
+      <!--
+        ========================================================================
+        3. ÁREA DE VISUALIZAÇÃO DO ORGANOGRAMA ORIGINAL
+        ------------------------------------------------------------------------
+        A viewport funciona como uma "janela" rolável.
+
+        Em telas menores:
+        - pode haver rolagem horizontal;
+        - pode haver rolagem vertical;
+        - o usuário pode usar os controles de zoom.
+        ========================================================================
+      -->
+      <div
+        class="viewport"
+        tabindex="0"
+        aria-label="Organograma com rolagem horizontal e vertical"
+      >
+        <!--
+          Stage:
+          recebe dimensões calculadas pelo JavaScript conforme
+          o nível de zoom.
+        -->
+        <div class="stage">
+          <!--
+            Chart:
+            área lógica de 1480px onde os nós são posicionados.
+          -->
+          <div class="chart">
+            <!--
+              SVG responsável exclusivamente pelos conectores.
+
+              O JavaScript cria dinamicamente os elementos <path>
+              dentro deste SVG.
+
+              aria-hidden="true":
+              os conectores são apenas visuais e não precisam ser
+              interpretados por leitores de tela.
+            -->
+            <svg
+              class="wires"
+              aria-hidden="true"
+            ></svg>
+
+            <!--
+              Área reservada à parte superior do organograma:
+              - Secretaria;
+              - Conselho;
+              - Chefia de Gabinete;
+              - Assessorias;
+              - Corregedoria;
+              - Controladoria.
+
+              Os nós são inseridos dinamicamente pelo JavaScript.
+            -->
+            <div class="upper"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        ========================================================================
+        4. TEXTO AUXILIAR
+        ========================================================================
+      -->
+      <div class="hint">
+        Selecione um órgão para consultar a estrutura completa.
+
+        <!--
+          Esta instrução aparece somente em dispositivos móveis.
+        -->
+        <span class="mobile-only">
+          Na visualização original, role horizontalmente
+          e use os controles de zoom.
+        </span>
+      </div>
+
+      <!--
+        ========================================================================
+        5. VISUALIZAÇÃO VERTICAL
+        ------------------------------------------------------------------------
+        Inicialmente vazia.
+
+        O JavaScript monta toda a árvore hierárquica com base no JSON.
+
+        Em smartphones, essa visualização pode ser usada como modo inicial.
+        ========================================================================
+      -->
+      <section
+        class="vertical-view"
+        aria-label="Estrutura organizacional vertical"
+      ></section>
+
+      <!--
+        ============================================================================
+        6. MODAL HIERÁRQUICO
+        ----------------------------------------------------------------------------
+
+        Exibe a estrutura completa da unidade selecionada.
+
+        O conteúdo é preenchido dinamicamente pelo JavaScript
+        a partir de estrutura-organizacional.json.
+        ============================================================================
+      -->
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="sepol-modal-title"
+      >
+        <!--
+          Caixa interna do modal.
+        -->
+        <section class="modal-panel">
+          <!--
+            Cabeçalho do modal.
+          -->
+          <header class="modal-head">
+            <!--
+              O JavaScript insere aqui o nome da unidade selecionada.
+            -->
+            <h2 id="sepol-modal-title"></h2>
+
+            <!--
+              Botão utilizado para fechar o modal.
+            -->
+            <button
+              type="button"
+              class="modal-close"
+              aria-label="Fechar janela"
+            >
+              ×
+            </button>
+          </header>
+
+          <!--
+            Corpo do modal.
+
+            O JavaScript preenche esta área com:
+            - details;
+            - summary;
+            - unidades subordinadas;
+            - códigos hierárquicos;
+            - informações complementares.
+          -->
+          <div class="modal-body"></div>
+
+          <!--
+            Rodapé fixo do modal.
+
+            Fica fora da área rolável para permanecer visível
+            mesmo quando houver muitos itens expandidos.
+          -->
+          <footer class="modal-footer">
+            <!--
+              Botão para impressão do conteúdo do modal.
+            -->
+            <button
+              type="button"
+              class="modal-print"
+            >
+              Imprimir
+            </button>
+
+            <!--
+              Botão secundário de fechamento.
+            -->
+            <button
+              type="button"
+              class="modal-footer-close"
+            >
+              Fechar
+            </button>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+    <!--
+      ==========================================================================
+      7. JAVASCRIPT DO ORGANOGRAMA
+      --------------------------------------------------------------------------
+      O script:
+      - carrega o JSON externo;
+      - cria os nós;
+      - cria a visualização vertical;
+      - cria os modais;
+      - desenha os conectores SVG;
+      - controla zoom;
+      - controla responsividade.
+      ==========================================================================
+    -->
+    <script src="js/organograma.js"></script>
+  </body>
+</html>

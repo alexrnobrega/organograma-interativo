@@ -1,0 +1,1848 @@
+/* ==========================================================================
+   ORGANOGRAMA INTERATIVO — SEPOL / PCERJ
+   --------------------------------------------------------------------------
+   Responsabilidades deste arquivo:
+   - identidade visual do organograma;
+   - layout do cabeçalho e controles;
+   - dimensões e posicionamento do organograma original;
+   - estilos dos nós institucionais;
+   - visualização vertical responsiva;
+   - modal hierárquico;
+   - estados de foco e acessibilidade;
+   - comportamento em smartphones;
+   - suporte a preferência por redução de movimento.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIÁVEIS E CONFIGURAÇÕES GERAIS DO COMPONENTE
+   ========================================================================== */
+
+/**
+ * Todo o CSS fica restrito a #sepol-org para evitar interferência
+ * com o restante do site institucional da Polícia Civil.
+ */
+#sepol-org {
+  /* Cor azul-escura do cabeçalho e controles ativos. */
+  --navy: #0d2137;
+
+  /* Dourado institucional utilizado nos nós principais. */
+  --gold: #b89535;
+
+  /* Cinza utilizado nos órgãos subordinados. */
+  --gray: #cccccc;
+
+  /* Preto utilizado no nó raiz da Secretaria. */
+  --black: #000000;
+
+  /* Cor dos conectores e linhas hierárquicas. */
+  --line: #444444;
+
+  /* Cor padrão do texto. */
+  color: #172331;
+
+  /* Tipografia-base do componente. */
+  font: 14px/1.4 'Segoe UI', Arial, sans-serif;
+
+  /* Fundo branco para integração ao site institucional. */
+  background: #ffffff;
+
+  /* Contexto de posicionamento para os elementos internos. */
+  position: relative;
+
+  /**
+   * Cria um contexto de empilhamento isolado.
+   * Ajuda a impedir conflitos de z-index com elementos externos.
+   */
+  isolation: isolate;
+}
+
+
+/**
+ * Faz todos os elementos internos utilizarem box-sizing: border-box.
+ * Isso evita que padding e border aumentem dimensões inesperadamente.
+ */
+#sepol-org * {
+  box-sizing: border-box;
+}
+
+
+/**
+ * Faz os botões herdarem a mesma tipografia do componente.
+ */
+#sepol-org button {
+  font: inherit;
+}
+
+
+/* ==========================================================================
+   2. CABEÇALHO INSTITUCIONAL
+   ========================================================================== */
+
+/**
+ * Barra superior contendo o título e o decreto.
+ */
+#sepol-org .head {
+  background: var(--navy);
+  color: #ffffff;
+
+  border-bottom: 3px solid var(--gold);
+
+  padding: 12px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  /**
+   * Permite quebra em telas menores.
+   */
+  flex-wrap: wrap;
+}
+
+
+/**
+ * Título principal do organograma.
+ */
+#sepol-org .head strong {
+  font-size: 15px;
+}
+
+
+/**
+ * Identificação do decreto no lado direito do cabeçalho.
+ */
+#sepol-org .decree {
+  font-size: 11px;
+
+  /**
+   * Fundo branco semitransparente.
+   * #ffffff20 corresponde a branco com transparência.
+   */
+  background: #ffffff20;
+
+  padding: 5px 8px;
+  border-radius: 3px;
+}
+
+
+/* ==========================================================================
+   3. BARRA DE CONTROLES
+   ========================================================================== */
+
+/**
+ * Área contendo:
+ * - alternância entre organograma original e vertical;
+ * - controles de zoom.
+ */
+#sepol-org .controls {
+  padding: 10px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+  flex-wrap: wrap;
+
+  border-bottom: 1px solid #dce3e9;
+}
+
+
+/**
+ * Estilo comum dos botões de controle e do botão de fechar modal.
+ */
+#sepol-org .controls button,
+#sepol-org .modal-close {
+  border: 1px solid #718096;
+  border-radius: 4px;
+
+  background: #ffffff;
+  color: var(--navy);
+
+  padding: 7px 12px;
+
+  cursor: pointer;
+}
+
+
+/**
+ * Aparência de botões desabilitados.
+ */
+#sepol-org .controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+
+/**
+ * Indica visualmente qual modo de visualização está ativo.
+ */
+#sepol-org .controls button[aria-pressed='true'] {
+  background: var(--navy);
+  color: #ffffff;
+}
+
+
+/* ==========================================================================
+   4. CONTROLES DE ZOOM
+   ========================================================================== */
+
+/**
+ * Agrupa os botões:
+ * - reduzir;
+ * - percentual;
+ * - ampliar;
+ * - ajustar.
+ */
+#sepol-org .zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/**
+ * Mantém o indicador percentual do zoom com largura estável.
+ */
+#sepol-org .zoom-controls span {
+  min-width: 46px;
+  text-align: center;
+
+  /**
+   * Evita variação de largura entre números.
+   */
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* ==========================================================================
+   5. VIEWPORT DO ORGANOGRAMA ORIGINAL
+   ========================================================================== */
+
+/**
+ * Área visível e rolável do organograma.
+ */
+#sepol-org .viewport {
+  width: 100%;
+
+  /**
+   * Altura máxima baseada no tamanho da janela.
+   * Não ultrapassa 800px.
+   */
+  height: min(77vh, 800px);
+
+  /**
+   * Garante altura mínima aceitável.
+   */
+  min-height: 390px;
+
+  /**
+   * Permite navegação horizontal e vertical pelo organograma.
+   */
+  overflow: auto;
+
+  /**
+   * Evita que o scroll interno "escape" para a página.
+   */
+  overscroll-behavior: contain;
+
+  background: #ffffff;
+  position: relative;
+
+  /**
+   * Permite pan horizontal e vertical em dispositivos touch.
+   */
+  touch-action: pan-x pan-y;
+}
+
+
+/* ==========================================================================
+   6. STAGE E ÁREA INTERNA DO ORGANOGRAMA
+   ========================================================================== */
+
+/**
+ * O stage recebe dimensões recalculadas pelo JavaScript
+ * de acordo com o nível de zoom.
+ */
+#sepol-org .stage {
+  position: relative;
+
+  /**
+   * Centraliza o organograma quando há espaço disponível.
+   */
+  margin: 0 auto;
+}
+
+
+/**
+ * Área real do organograma original.
+ *
+ * A largura de 1480px representa a "prancheta" lógica utilizada
+ * para reproduzir a estrutura do PDF.
+ */
+#sepol-org .chart {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 1480px;
+
+  /**
+   * Altura mínima inicial.
+   * O JavaScript recalcula a altura final após montar os nós.
+   */
+  min-height: 1150px;
+
+  /**
+   * O zoom é aplicado a partir do canto superior esquerdo.
+   */
+  transform-origin: top left;
+
+  background: #ffffff;
+}
+
+
+/* ==========================================================================
+   7. SVG DOS CONECTORES
+   ========================================================================== */
+
+/**
+ * O SVG fica sobre toda a área do organograma.
+ *
+ * Os caminhos são gerados dinamicamente pelo JavaScript.
+ */
+#sepol-org .wires {
+  position: absolute;
+
+  inset: 0;
+
+  /**
+   * Impede que o SVG capture cliques destinados aos nós.
+   */
+  pointer-events: none;
+
+  /**
+   * Permite linhas fora do retângulo inicial quando necessário.
+   */
+  overflow: visible;
+
+  /**
+   * Fica atrás dos nós.
+   */
+  z-index: 0;
+}
+
+
+/**
+ * Wrappers dos nós posicionados absolutamente.
+ */
+#sepol-org .chart-node {
+  position: absolute;
+  z-index: 1;
+}
+
+
+/* ==========================================================================
+   8. ESTILO PADRÃO DOS NÓS
+   ========================================================================== */
+
+/**
+ * Aparência-base dos órgãos principais.
+ */
+#sepol-org .node {
+  border: 1px solid #a18b51;
+  border-radius: 4px;
+
+  box-shadow: 0 1px 3px #0002;
+
+  min-height: 37px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 7px 9px;
+
+  font-size: 11px;
+  line-height: 1.22;
+  font-weight: 700;
+
+  background: var(--gold);
+  color: #ffffff;
+
+  width: 100%;
+
+  cursor: pointer;
+
+  /**
+   * Permite quebra de palavras muito longas.
+   */
+  overflow-wrap: anywhere;
+}
+
+
+/**
+ * Nós subordinados em cinza.
+ */
+#sepol-org .node.gray {
+  background: var(--gray);
+  color: #111111;
+
+  border-color: #aaaaaa;
+}
+
+
+/**
+ * Nó raiz da Secretaria.
+ */
+#sepol-org .node.black {
+  background: var(--black);
+  color: #ffffff;
+
+  border-color: var(--black);
+
+  font-size: 16px;
+
+  min-height: 55px;
+}
+
+
+/**
+ * Feedback visual ao passar o mouse.
+ */
+#sepol-org .node:hover {
+  filter: brightness(0.91);
+}
+
+
+/* ==========================================================================
+   9. ACESSIBILIDADE — FOCO VISÍVEL
+   ========================================================================== */
+
+/**
+ * Exibe contorno claro para navegação por teclado.
+ */
+#sepol-org .node:focus-visible,
+#sepol-org button:focus-visible,
+#sepol-org summary:focus-visible {
+  outline: 3px solid #1769aa;
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================================
+   10. ESTRUTURA SUPERIOR DO ORGANOGRAMA
+   ========================================================================== */
+
+/**
+ * Área superior:
+ * - Secretaria;
+ * - Conselho;
+ * - Gabinete;
+ * - Assessorias;
+ * - Corregedoria;
+ * - Controladoria.
+ *
+ * A altura foi reduzida de 620px para 575px
+ * para aproximar o eixo horizontal principal do último nó superior.
+ */
+#sepol-org .upper {
+  position: relative;
+  height: 575px;
+}
+
+
+/**
+ * Nó raiz da Secretaria.
+ *
+ * Os valores correspondem à prancheta de 1480px.
+ */
+#sepol-org .root {
+  top: 22px;
+  left: 580px;
+  width: 320px;
+}
+
+
+/**
+ * Largura-base dos nós superiores.
+ */
+#sepol-org .upper-node {
+  width: 205px;
+}
+
+
+/* ==========================================================================
+   11. GRUPOS LATERAIS — CORREGEDORIA E CONTROLADORIA
+   ========================================================================== */
+
+/**
+ * Container lateral utilizado pelos grupos do lado esquerdo.
+ */
+#sepol-org .left-group {
+  position: absolute;
+
+  width: 500px;
+
+  /**
+   * Posiciona o conjunto à esquerda do eixo central.
+   */
+  left: 185px;
+}
+
+
+/**
+ * Nó-pai de um grupo hierárquico lateral.
+ *
+ * Por padrão, o pai é centralizado horizontalmente em relação
+ * à área ocupada pelos seus filhos.
+ *
+ * Exemplo:
+ *
+ *                 Corregedoria-Geral
+ *                         │
+ *          ───────────────┼───────────────
+ *          │              │              │
+ *        Filho          Filho          Filho...
+ */
+#sepol-org .left-group .parent {
+  position: relative;
+
+  width: 225px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/**
+ * Container dos filhos exibidos no PDF.
+ */
+#sepol-org .left-group .children {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  /**
+   * Cria espaço para os conectores entre pai e filhos.
+   */
+  margin-top: 34px;
+}
+
+
+/**
+ * Quando existem quatro filhos,
+ * distribui-os igualmente dentro do container.
+ */
+#sepol-org .left-group .children .child {
+  width: calc((100% - 24px) / 4);
+}
+
+
+/**
+ * Variante usada quando o grupo possui apenas dois filhos visíveis.
+ *
+ * Exemplo:
+ * Controladoria → Auditoria / Ouvidoria.
+ */
+#sepol-org .left-group .children.two {
+  width: 275px;
+  margin-left: auto;
+}
+
+
+/**
+ * Grupos que possuem apenas dois filhos visíveis.
+ *
+ * O bloco dos filhos possui 275px e permanece alinhado à direita
+ * dentro do container de 500px.
+ *
+ * O pai possui 225px.
+ *
+ * Diferença:
+ *
+ * 275px - 225px = 50px
+ *
+ * Para centralizar o pai sobre os dois filhos:
+ *
+ * 50px / 2 = 25px
+ *
+ * Portanto, a margem direita do pai é 25px.
+ */
+#sepol-org .left-group.two-group .parent {
+  margin-left: auto;
+  margin-right: 25px;
+}
+
+
+/**
+ * Divide igualmente o espaço entre dois filhos.
+ */
+#sepol-org .left-group .children.two .child {
+  width: calc((100% - 8px) / 2);
+}
+
+
+/* ==========================================================================
+   12. QUATRO SUBSECRETARIAS PRINCIPAIS
+   ========================================================================== */
+
+/**
+ * Linha de colunas inferior:
+ * 1. Gestão Administrativa
+ * 2. Planejamento e Integração Operacional
+ * 3. Inteligência
+ * 4. Polícia Técnico-Científica
+ */
+#sepol-org .subrow {
+  position: relative;
+
+  display: grid;
+
+  /**
+   * Quatro colunas com larguras iguais.
+   */
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 18px;
+
+  padding: 0 24px 36px;
+}
+
+
+/**
+ * Cada coluna principal.
+ */
+#sepol-org .subcolumn {
+  position: relative;
+
+  /**
+   * Importante para impedir overflow em grid.
+   */
+  min-width: 0;
+}
+
+
+/**
+ * Nó principal de cada subsecretaria.
+ */
+#sepol-org .subcolumn > .node {
+  min-height: 53px;
+}
+
+/**
+ * Unidade diretamente subordinada a uma das quatro Subsecretarias.
+ *
+ * O recuo à esquerda cria o espaço necessário para o eixo vertical
+ * e para os pequenos conectores horizontais.
+ *
+ * Como a largura é reduzida pelo mesmo valor do recuo, o lado direito
+ * da coluna permanece alinhado.
+ */
+#sepol-org .direct {
+  position: relative;
+
+  margin-top: 9px;
+
+  /*
+   * Recuo visual em relação à Subsecretaria.
+   *
+   * A própria posição real desse elemento será utilizada pelo JavaScript
+   * para calcular automaticamente a posição do eixo SVG.
+   */
+  margin-left: 28px;
+
+  width: calc(100% - 28px);
+}
+
+
+/**
+ * Caixa da unidade diretamente subordinada.
+ */
+#sepol-org .direct > .node {
+  min-height: 38px;
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   13. DESCENDENTES VISÍVEIS NO ORGANOGRAMA ORIGINAL
+   ========================================================================== */
+
+/**
+ * Container das unidades subordinadas de níveis inferiores.
+ *
+ * A linha vertical deixou de ser feita por border-left.
+ * A partir de agora, toda a geometria hierárquica será desenhada por SVG,
+ * da mesma forma que já fazemos entre as Subsecretarias e seus filhos diretos.
+ */
+#sepol-org .descendants {
+  /*
+   * Recuo que cria espaço entre o nó pai e seus filhos.
+   *
+   * Esse espaço será usado pelo JavaScript para posicionar
+   * automaticamente o eixo vertical.
+   */
+  margin: 6px 0 10px 28px;
+
+  padding-left: 0;
+
+  display: grid;
+
+  gap: 5px;
+
+  width: calc(100% - 28px);
+}
+
+
+/**
+ * Nós subordinados de nível mais profundo.
+ */
+#sepol-org .descendants .node {
+  font-size: 10px;
+  font-weight: 600;
+
+  padding: 5px;
+
+  min-height: 32px;
+}
+
+/**
+ * Nós-resumo.
+ *
+ * Representam conjuntos de unidades que não devem ser
+ * individualizadas no organograma principal.
+ *
+ * Exemplos:
+ * - Delegacias Distritais;
+ * - Delegacias Especializadas;
+ * - Delegacias de Atendimento à Mulher;
+ * - Delegacias de Acervo Cartorário.
+ */
+#sepol-org .summary-node {
+  font-weight: 700;
+  font-size: 10px;
+}
+
+/**
+ * Cada novo nível hierárquico recebe novamente um pequeno recuo.
+ *
+ * Isso permite reproduzir:
+ *
+ * Pai
+ *   │
+ *   ├── Filho
+ *   │    │
+ *   │    ├── Neto
+ *   │    └── Neto
+ *   │
+ *   └── Filho
+ */
+#sepol-org .descendants .descendants {
+  margin-left: 24px;
+
+  width: calc(100% - 24px);
+
+  padding-left: 0;
+}
+
+
+/**
+ * Cada branch representa uma unidade que possui posição hierárquica
+ * abaixo de outro órgão.
+ */
+#sepol-org .branch {
+  position: relative;
+  width: 100%;
+}
+
+
+/**
+ * Garante que os nós de subníveis utilizem toda a largura
+ * disponível após o recuo hierárquico.
+ */
+#sepol-org .branch > .node {
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   14. VISUALIZAÇÃO VERTICAL RESPONSIVA
+   ========================================================================== */
+
+/**
+ * A visualização vertical fica oculta inicialmente.
+ *
+ * Ela é ativada quando:
+ * #sepol-org[data-view="vertical"]
+ */
+#sepol-org .vertical-view {
+  display: none;
+
+  padding: 18px 12px 28px;
+
+  max-width: 760px;
+
+  margin: auto;
+}
+
+
+/**
+ * Nó principal da visualização vertical.
+ */
+#sepol-org .vertical-view .vnode {
+  background: var(--gold);
+  color: #ffffff;
+
+  border: 1px solid #94752b;
+
+  padding: 11px 12px;
+
+  border-radius: 3px;
+
+  font-weight: 700;
+
+  width: 100%;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+
+/**
+ * Secretaria no modo vertical.
+ */
+#sepol-org .vertical-view .vnode.root-v {
+  background: var(--black);
+}
+
+
+/**
+ * Nós mais profundos do modo vertical.
+ */
+#sepol-org .vertical-view .vnode.deep {
+  background: #d1d1d1;
+  color: #111111;
+
+  border-color: #aaaaaa;
+
+  font-weight: 600;
+}
+
+
+/**
+ * Ramificação vertical dos filhos.
+ */
+#sepol-org .vbranch {
+  border-left: 2px solid var(--line);
+
+  margin-left: 14px;
+
+  padding-left: 13px;
+
+  display: grid;
+
+  gap: 7px;
+
+  margin-top: 8px;
+}
+
+
+/**
+ * Garante que os níveis recolhidos da visualização vertical
+ * sejam realmente ocultados.
+ *
+ * O JavaScript controla o atributo hidden dos containers .vbranch.
+ * Esta regra tem precedência sobre o display: grid definido acima.
+ */
+#sepol-org .vbranch[hidden] {
+  display: none;
+}
+
+/**
+ * Espaçamento entre itens verticais.
+ */
+#sepol-org .vitem {
+  margin: 0 0 9px;
+}
+
+
+/**
+ * Estilo de summary caso sejam utilizados elementos details.
+ */
+#sepol-org details.vitem > summary {
+  cursor: pointer;
+
+  padding: 4px 0;
+
+  list-style: revert;
+
+  font-weight: 600;
+}
+
+
+/**
+ * Cabeçalho de cada item vertical:
+ * botão da unidade + botão expandir/recolher.
+ */
+#sepol-org .vhead {
+  display: flex;
+
+  gap: 6px;
+
+  align-items: stretch;
+}
+
+
+/**
+ * Faz o botão principal ocupar o espaço disponível.
+ */
+#sepol-org .vhead > .vnode {
+  flex: 1;
+}
+
+
+/**
+ * Botão + / − da visualização vertical.
+ */
+#sepol-org .vhead .expand {
+  width: 39px;
+
+  flex: none;
+
+  border: 1px solid #aaaaaa;
+
+  background: #ffffff;
+  color: #172331;
+
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+
+/* ==========================================================================
+   15. MODAL HIERÁRQUICO
+   ========================================================================== */
+
+/**
+ * Backdrop que cobre toda a tela.
+ *
+ * O modal começa oculto.
+ */
+#sepol-org .modal {
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  /**
+   * Azul muito escuro com transparência.
+   */
+  background: #0a1929bd;
+
+  z-index: 9999;
+
+  padding: 16px;
+}
+
+
+/**
+ * Quando aria-hidden=false, o modal é exibido.
+ */
+#sepol-org .modal[aria-hidden='false'] {
+  display: flex;
+}
+
+
+#sepol-org .modal-panel {
+  background: #ffffff;
+
+  /*
+   * Mantém a faixa superior fazendo parte da geometria
+   * do próprio modal, preservando o espaçamento do cabeçalho.
+   */
+  border-top: 5px solid var(--navy);
+
+  /*
+   * O raio precisa ser maior que a espessura da borda superior
+   * para que a curvatura dos cantos fique visualmente evidente.
+   */
+  border-radius: 12px;
+
+  /*
+   * Recorta cabeçalho e conteúdo conforme os quatro cantos.
+   */
+  overflow: hidden;
+
+  width: min(800px, 100%);
+
+  max-height: min(90dvh, 900px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  box-shadow: 0 8px 32px #0005;
+}
+
+
+/**
+ * Cabeçalho do modal.
+ */
+#sepol-org .modal-head {
+  padding: 16px 20px;
+
+  display: flex;
+
+  gap: 16px;
+
+  /* Centraliza verticalmente o título e o botão Fechar. */
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom: 1px solid #dddddd;
+}
+
+
+/**
+ * Título do órgão selecionado.
+ */
+#sepol-org .modal-head h2 {
+  font-size: 18px;
+
+  margin: 0;
+
+  color: var(--navy);
+}
+
+
+/**
+ * Botão × de fechamento do modal.
+ *
+ * Mantém formato quadrado e não afeta os demais botões.
+ */
+#sepol-org .modal-close {
+  /*
+   * Sobrescreve o padding herdado do bloco compartilhado.
+   */
+  padding: 0;
+
+  /*
+   * Dimensões fixas para manter o botão quadrado.
+   */
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 36px;
+
+  /*
+   * Centraliza o conteúdo internamente.
+   */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /*
+   * Oculta apenas o caractere original.
+   */
+  font-size: 0;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+/**
+ * Hover do botão × no cabeçalho do modal.
+ */
+#sepol-org .modal-close:hover {
+  background: #f3f4f5;
+  border-color: #aeb6bf;
+  color: var(--navy);
+}
+
+
+/**
+ * Caractere × exibido dentro do botão.
+ */
+#sepol-org .modal-close::before {
+  content: '×';
+
+  font-size: 22px;
+  line-height: 1;
+
+  /*
+   * Ajuste fino apenas do caractere.
+   */
+  position: relative;
+  top: -2px;
+}
+
+
+/**
+ * Corpo rolável do modal.
+ */
+#sepol-org .modal-body {
+  padding: 16px 20px;
+
+  overflow: auto;
+
+  overscroll-behavior: contain;
+}
+
+
+/**
+ * Rodapé fixo do modal.
+ *
+ * Como fica fora de .modal-body, permanece visível
+ * mesmo quando o conteúdo central possuir rolagem.
+ */
+#sepol-org .modal-footer {
+  padding: 10px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  flex: 0 0 auto;
+
+  border-top: 1px solid #dddddd;
+
+  background: #ffffff;
+}
+
+
+/**
+ * Botões Imprimir e Fechar do rodapé.
+ */
+#sepol-org .modal-footer button {
+  border: 1px solid #c8cdd2;
+  border-radius: 4px;
+
+  background: #ffffff;
+  color: #2d3748;
+
+  padding: 7px 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+/**
+ * Feedback visual dos botões do rodapé.
+ */
+#sepol-org .modal-footer button:hover {
+  background: #f3f4f5;
+
+  border-color: #aeb6bf;
+}
+
+
+/* ==========================================================================
+   16. ESTRUTURA HIERÁRQUICA DENTRO DO MODAL
+   ========================================================================== */
+
+
+/**
+ * Item expansível da árvore hierárquica.
+ *
+ * Cada <details> representa uma unidade que:
+ *
+ * - possui unidades subordinadas; ou
+ * - possui informações institucionais próprias.
+ *
+ * A linha dourada à esquerda ajuda a visualizar
+ * a continuidade da hierarquia.
+ */
+#sepol-org .modal-body .modal-tree-item {
+  margin: 6px 0 6px 5px;
+
+  padding: 0 0 0 12px;
+
+  border-left: 2px solid var(--gold);
+}
+
+
+/**
+ * Cabeçalho clicável de uma unidade expansível.
+ *
+ * Visualmente funciona como a barra de cada unidade
+ * observada no organograma de referência.
+ */
+#sepol-org .modal-body .modal-tree-item > summary {
+  min-height: 40px;
+
+  padding: 8px 10px;
+
+  border: 1px solid #d9dee3;
+  border-radius: 3px;
+
+  background: #f5f6f7;
+
+  color: #172331;
+
+  cursor: pointer;
+
+  font-weight: 650;
+
+  line-height: 1.35;
+
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+/**
+ * Hover do cabeçalho expansível.
+ *
+ * O texto acompanha o dourado institucional,
+ * mantendo o código hierárquico em cinza.
+ */
+#sepol-org .modal-body .modal-tree-item > summary:hover {
+  color: var(--gold);
+
+  background: #f8f8f6;
+
+  border-color: #c8cdd2;
+}
+
+
+/**
+ * Mantém o número/código hierárquico em cinza
+ * mesmo durante o hover.
+ */
+#sepol-org
+  .modal-body
+  .modal-tree-item
+  > summary:hover
+  .node-code {
+  color: #697586;
+}
+
+
+/**
+ * Item expansível aberto.
+ *
+ * Mantém a barra superior destacada sem exagerar
+ * visualmente na hierarquia.
+ */
+#sepol-org
+  .modal-body
+  .modal-tree-item[open]
+  > summary {
+  border-color: #c7ccd1;
+
+  background: #f1f3f4;
+}
+
+
+/**
+ * Código hierárquico das unidades do modal.
+ *
+ * Mantém exatamente a mesma tipografia tanto nos itens
+ * expansíveis (<summary>) quanto nos itens terminais (.leaf).
+ *
+ * Exemplos:
+ *
+ * 3.7.1
+ * 3.7.1.4
+ * 5.4.2.6
+ */
+#sepol-org .modal-body .node-code {
+  color: #697586;
+
+  font-size: 11px;
+  line-height: 1;
+
+  font-weight: 700;
+
+  font-family: 'Segoe UI', Arial, sans-serif;
+
+  font-variant-numeric: tabular-nums;
+
+  margin-right: 6px;
+
+  flex: 0 0 auto;
+}
+
+
+/**
+ * Container que recebe os filhos de um item expandido.
+ *
+ * O pequeno recuo horizontal deixa claro que os próximos
+ * elementos pertencem à unidade imediatamente superior.
+ */
+#sepol-org .modal-tree-children {
+  margin: 6px 0 3px 14px;
+
+  padding: 0;
+}
+
+
+/**
+ * Quanto mais profundo o nível hierárquico,
+ * maior será o recuo visual criado naturalmente
+ * pelos containers .modal-tree-children aninhados.
+ */
+#sepol-org
+  .modal-tree-children
+  > .modal-tree-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+/**
+ * Unidade terminal sem filhos e sem informações adicionais.
+ *
+ * Visualmente ela deve seguir o mesmo alinhamento dos itens ativos:
+ * - linha vertical à esquerda;
+ * - box cinza separado dessa linha;
+ * - mesmo padrão de altura e espaçamento.
+ */
+#sepol-org .modal-body .leaf {
+  position: relative;
+
+  /*
+   * O box começa mais à direita para criar
+   * o mesmo afastamento visual existente nos <details>.
+   */
+  margin: 6px 0 6px 19px;
+
+  min-height: 40px;
+
+  padding: 8px 10px 8px 14px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #d9dee3;
+  border-radius: 3px;
+
+  background: #f5f6f7;
+  color: #2d3748;
+}
+
+
+/**
+ * Linha vertical cinza da unidade terminal.
+ *
+ * Fica separada do box, imitando a estrutura visual
+ * dos itens expansíveis.
+ */
+#sepol-org .modal-body .leaf::after {
+  content: '';
+
+  position: absolute;
+
+  top: -1px;
+  bottom: -1px;
+
+  /*
+   * Puxa a linha para a esquerda do box.
+   */
+  left: -15px;
+
+  border-left: 2px solid #bcc5cf;
+}
+
+
+/**
+ * Marcador visual da unidade terminal.
+ */
+#sepol-org .modal-body .leaf::before {
+  content: '▶';
+
+  color: #bcc5cf;
+
+  font-size: 12px;
+
+  width: 16px;
+  flex: 0 0 16px;
+
+  margin-left: -5px;
+  margin-right: 0px;
+}
+
+
+/**
+ * Texto auxiliar exibido acima da árvore.
+ */
+#sepol-org .modal-body .note {
+  color: #586574;
+
+  font-size: 12px;
+
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+
+/**
+ * Título de seções complementares.
+ */
+#sepol-org .modal-body .section {
+  margin: 18px 0 8px;
+
+  border-top: 1px solid #dddddd;
+
+  padding-top: 10px;
+}
+
+
+/* ==========================================================================
+   17. TEXTO AUXILIAR ABAIXO DO ORGANOGRAMA
+   ========================================================================== */
+
+/**
+ * Instrução de uso.
+ */
+#sepol-org .hint {
+  font-size: 12px;
+
+  color: #516070;
+
+  padding: 6px 13px;
+}
+
+
+/**
+ * Conteúdo exibido apenas em dispositivos móveis.
+ */
+#sepol-org .mobile-only {
+  display: none;
+}
+
+
+/* ==========================================================================
+   18. RESPONSIVIDADE — SMARTPHONES
+   ========================================================================== */
+
+/**
+ * Breakpoint utilizado para smartphones.
+ */
+@media (max-width: 767px) {
+
+  /**
+   * Exibe textos específicos de mobile.
+   */
+  #sepol-org .mobile-only {
+    display: inline;
+  }
+
+
+  /**
+   * Reduz o padding do cabeçalho.
+   */
+  #sepol-org .head {
+    padding: 10px 12px;
+  }
+
+
+  /**
+   * Reduz ligeiramente o título institucional.
+   */
+  #sepol-org .head strong {
+    font-size: 13px;
+  }
+
+
+  /**
+   * Mantém os controles visíveis durante a navegação.
+   */
+  #sepol-org .controls {
+    position: sticky;
+
+    top: 0;
+
+    background: #ffffff;
+
+    z-index: 3;
+  }
+
+
+  /**
+   * Ajusta a altura do viewport no smartphone.
+   */
+  #sepol-org .viewport {
+    height: 68dvh;
+
+    min-height: 320px;
+  }
+
+
+  /**
+   * Reduz a margem externa do modal.
+   */
+  #sepol-org .modal {
+    padding: 5px;
+  }
+
+
+  /**
+   * Faz o modal utilizar praticamente toda a largura disponível.
+   */
+  #sepol-org .modal-panel {
+    width: 100%;
+
+    max-height: 96dvh;
+  }
+
+
+  /**
+   * Reduz os espaçamentos internos do modal.
+   */
+  #sepol-org .modal-head,
+  #sepol-org .modal-body {
+    padding: 12px;
+  }
+
+
+  #sepol-org .modal-footer {
+    padding: 10px 12px;
+  }
+
+
+  /**
+   * Reduz o título do modal em telas menores.
+   */
+  #sepol-org .modal-head h2 {
+    font-size: 16px;
+  }
+
+
+  /**
+   * Reduz progressivamente os recuos da árvore no smartphone
+   * para preservar espaço horizontal para os nomes extensos.
+   */
+  #sepol-org .modal-tree-children {
+    margin-left: 8px;
+  }
+
+
+  /**
+   * Reduz o recuo interno do details.
+   */
+  #sepol-org .modal-body .modal-tree-item {
+    padding-left: 8px;
+  }
+
+
+  /**
+   * Mantém os dados institucionais legíveis
+   * em telas estreitas.
+   */
+  #sepol-org .info-row {
+    display: block;
+  }
+
+
+  #sepol-org .info-label {
+    display: inline;
+
+    margin-right: 3px;
+  }
+
+
+  #sepol-org .info-value {
+    display: inline;
+  }
+}
+
+
+/**
+ * Bloco de informações institucionais da unidade
+ * originalmente selecionada no organograma.
+ *
+ * Esta ficha permanece no topo do modal.
+ */
+#sepol-org .institutional-info {
+  margin: 0 0 16px;
+
+  padding: 0 0 16px;
+
+  border-bottom: 1px solid #dddddd;
+
+  display: grid;
+
+  gap: 7px;
+}
+
+
+/**
+ * Ficha institucional pertencente a um item interno
+ * da árvore hierárquica.
+ *
+ * Ela fica dentro do respectivo <details> e só aparece
+ * quando aquele item for expandido.
+ */
+#sepol-org .institutional-info-inline {
+  margin: 0;
+
+  padding: 11px 12px 12px;
+
+  border-bottom: 0;
+
+  background: #ffffff;
+
+  gap: 6px;
+}
+
+
+/**
+ * Cria uma pequena separação entre o summary
+ * e os dados da unidade aberta.
+ */
+#sepol-org
+  .modal-tree-item[open]
+  > .institutional-info-inline {
+  margin-top: 3px;
+}
+
+
+/**
+ * Quando a unidade possui informações e também possui filhos,
+ * cria espaço entre a ficha e as unidades subordinadas.
+ */
+#sepol-org
+  .institutional-info-inline
+  + .modal-tree-children {
+  margin-top: 4px;
+}
+
+
+/**
+ * Cada linha da ficha institucional.
+ *
+ * Exemplo:
+ *
+ * Endereço: Rua...
+ * Responsável: ...
+ * Telefones: ...
+ */
+#sepol-org .info-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 5px;
+
+  line-height: 1.45;
+}
+
+
+/**
+ * Rótulo da informação.
+ */
+#sepol-org .info-label {
+  flex: 0 0 auto;
+
+  color: var(--navy);
+
+  font-weight: 700;
+}
+
+
+/**
+ * Valor correspondente.
+ */
+#sepol-org .info-value {
+  min-width: 0;
+
+  color: #2d3748;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================================
+   19. ALTERNÂNCIA ENTRE MODOS DE VISUALIZAÇÃO
+   ========================================================================== */
+
+/**
+ * Quando o modo vertical está ativo:
+ * - esconde viewport do organograma original;
+ * - esconde controles de zoom.
+ */
+#sepol-org[data-view='vertical'] .viewport,
+#sepol-org[data-view='vertical'] .zoom-controls {
+  display: none;
+}
+
+
+/**
+ * Exibe a árvore vertical.
+ */
+#sepol-org[data-view='vertical'] .vertical-view {
+  display: block;
+}
+
+
+/**
+ * Oculta a instrução específica do organograma original.
+ */
+#sepol-org[data-view='vertical'] .hint {
+  display: none;
+}
+
+
+/* ==========================================================================
+   20. IMPRESSÃO DO MODAL
+   ========================================================================== */
+
+
+/**
+ * Ao imprimir, exibe somente o conteúdo do modal aberto.
+ */
+@media print {
+  /**
+   * Remove margens visuais desnecessárias da página.
+   */
+  body {
+    margin: 0 !important;
+
+    background: #ffffff !important;
+  }
+
+
+  /**
+   * Oculta todos os elementos principais do organograma,
+   * preservando somente o modal.
+   */
+  #sepol-org > :not(.modal) {
+    display: none !important;
+  }
+
+
+  /**
+   * Transforma o modal em conteúdo normal da página impressa.
+   *
+   * Remove:
+   * - backdrop;
+   * - posicionamento fixo;
+   * - centralização na tela.
+   */
+  #sepol-org .modal {
+    position: static !important;
+
+    inset: auto !important;
+
+    display: block !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+  }
+
+
+  /**
+   * O painel passa a utilizar toda a largura imprimível.
+   */
+  #sepol-org .modal-panel {
+    width: 100% !important;
+
+    max-height: none !important;
+
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    overflow: visible !important;
+  }
+
+
+  /**
+   * Mantém a identidade visual superior na impressão.
+   */
+  #sepol-org .modal-head {
+    break-inside: avoid;
+  }
+
+
+  /**
+   * Remove o botão × da impressão.
+   */
+  #sepol-org .modal-close {
+    display: none !important;
+  }
+
+
+  /**
+   * Remove a limitação de rolagem.
+   *
+   * Todo o conteúdo atualmente exibido no modal
+   * passa a fazer parte do documento impresso.
+   */
+  #sepol-org .modal-body {
+    overflow: visible !important;
+
+    max-height: none !important;
+  }
+
+
+  /**
+   * Os controles do rodapé não devem aparecer no papel/PDF.
+   */
+  #sepol-org .modal-footer {
+    display: none !important;
+  }
+
+
+  /**
+   * Evita que o cabeçalho de uma unidade fique sozinho
+   * no final de uma página quando possível.
+   */
+  #sepol-org .modal-tree-item > summary {
+    break-after: avoid;
+  }
+
+
+  /**
+   * Evita cortes desnecessários nas fichas institucionais.
+   */
+  #sepol-org .institutional-info,
+  #sepol-org .institutional-info-inline {
+    break-inside: avoid;
+  }
+}
+
+
+/* ==========================================================================
+   21. ACESSIBILIDADE — REDUÇÃO DE MOVIMENTO
+   ========================================================================== */
+
+/**
+ * Respeita usuários que configuraram o sistema
+ * para reduzir animações e movimentos.
+ */
+@media (prefers-reduced-motion: reduce) {
+  #sepol-org * {
+    scroll-behavior: auto !important;
+  }
+}
