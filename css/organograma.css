@@ -1673,6 +1673,45 @@
   #sepol-org .info-value {
     display: inline;
   }
+
+
+  /**
+  * Mantém o texto auxiliar fixo no rodapé da tela em smartphones.
+  *
+  * O fundo branco evita que o texto fique sobreposto
+  * visualmente ao organograma.
+  */
+  #sepol-org .hint {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 4;
+
+    padding: 8px 12px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #dce3e9;
+
+    text-align: center;
+  }
+
+
+  /**
+   * Reserva espaço para que o conteúdo não fique
+   * escondido atrás do texto auxiliar fixo.
+   */
+  #sepol-org .vertical-view {
+    padding-bottom: 56px;
+  }
+  
+
+  #sepol-org .viewport {
+    padding-bottom: 56px;
+  }
 }
 
 
