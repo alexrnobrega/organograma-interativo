@@ -1433,7 +1433,7 @@
         'p',
         'note',
         modalBody,
-        'Não há unidades subordinadas relacionadas para este órgão.',
+        'Não há unidades subordinadas.',
       );
     }
 
