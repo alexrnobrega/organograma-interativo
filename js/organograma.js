@@ -1498,18 +1498,26 @@
 
 
     /**
-     * Toda nova abertura começa pelo topo do conteúdo.
-     */
-    modalBody.scrollTop = 0;
-
-
-    /**
      * Exibe o modal.
      */
     modal.setAttribute(
       'aria-hidden',
       'false',
     );
+
+
+    /**
+     * Garante que toda nova abertura comece no topo.
+     *
+     * O reset é feito após o modal voltar a ficar visível,
+     * no próximo frame de renderização.
+     *
+     * Isso evita que navegadores como o Safari/iOS
+     * restaurem a posição de rolagem usada na abertura anterior.
+     */
+    requestAnimationFrame(() => {
+      modalBody.scrollTop = 0;
+    });
 
 
     /**
@@ -1539,6 +1547,15 @@
     );
 
 
+    /**
+     * Limpa a posição de rolagem usada nesta abertura.
+     *
+     * Assim, mesmo antes da próxima abertura,
+     * o corpo do modal já permanece reposicionado no topo.
+     */
+    modalBody.scrollTop = 0;
+
+    
     /**
      * Libera novamente o scroll da página.
      */
