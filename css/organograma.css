@@ -945,6 +945,48 @@
 
 
 /**
+ * Encerra o eixo vertical exatamente no centro
+ * da última unidade de cada ramificação.
+ *
+ * A própria .vbranch possui uma border-left contínua.
+ * Este pseudo-elemento cobre somente o trecho que ficaria
+ * abaixo do centro do último cabeçalho.
+ *
+ * O valor adicional de 9px corresponde à margem inferior
+ * definida atualmente em .vitem.
+ */
+#sepol-org
+  .vbranch
+  > .vitem:last-child
+  > .vhead::after {
+  content: '';
+
+  position: absolute;
+
+  left: -15px;
+
+  /*
+   * Começa imediatamente abaixo do centro da unidade,
+   * preservando o ponto de encontro com o braço horizontal.
+   */
+  top: calc(50% + 1px);
+
+  width: 2px;
+
+  /*
+   * Cobre:
+   * - a metade inferior restante do cabeçalho;
+   * - os 9px da margem inferior de .vitem.
+   */
+  height: calc(50% + 8px);
+
+  background: #ffffff;
+
+  pointer-events: none;
+}
+
+
+/**
  * Estilo de summary caso sejam utilizados elementos details.
  */
 #sepol-org details.vitem > summary {
