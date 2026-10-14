@@ -842,8 +842,16 @@
 
 /**
  * Ramificação vertical dos filhos.
+ *
+ * O eixo vertical fica à esquerda das unidades e serve como
+ * tronco principal da hierarquia.
+ *
+ * Cada unidade recebe posteriormente um braço horizontal
+ * alinhado exatamente ao centro vertical de seu cabeçalho.
  */
 #sepol-org .vbranch {
+  position: relative;
+
   border-left: 2px solid var(--line);
 
   margin-left: 14px;
@@ -855,6 +863,27 @@
   gap: 7px;
 
   margin-top: 8px;
+}
+
+
+/**
+ * Prolonga o eixo vertical para cima, atravessando o espaço
+ * existente entre o nó-pai e o respectivo grupo de filhos.
+ *
+ * Dessa forma, o conector passa a partir visualmente
+ * da unidade imediatamente superior.
+ */
+#sepol-org .vbranch::before {
+  content: '';
+
+  position: absolute;
+
+  left: -2px;
+  top: -8px;
+
+  height: 8px;
+
+  border-left: 2px solid var(--line);
 }
 
 
@@ -874,6 +903,44 @@
  */
 #sepol-org .vitem {
   margin: 0 0 9px;
+}
+
+
+/**
+ * Cria o contexto necessário para posicionar
+ * o braço horizontal de cada unidade.
+ */
+#sepol-org .vbranch > .vitem > .vhead {
+  position: relative;
+}
+
+
+/**
+ * Braço horizontal entre o eixo vertical e a unidade.
+ *
+ * O braço fica exatamente em 50% da altura do cabeçalho,
+ * conectando o eixo ao centro vertical da respectiva caixa.
+ *
+ * 15px correspondem a:
+ *
+ * - 2px da borda do eixo;
+ * - 13px do padding-left de .vbranch.
+ */
+#sepol-org .vbranch > .vitem > .vhead::before {
+  content: '';
+
+  position: absolute;
+
+  left: -15px;
+  top: 50%;
+
+  width: 15px;
+
+  border-top: 2px solid var(--line);
+
+  transform: translateY(-1px);
+
+  pointer-events: none;
 }
 
 
