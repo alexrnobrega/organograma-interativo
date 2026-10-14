@@ -23,9 +23,6 @@
  * com o restante do site institucional da Polícia Civil.
  */
 #sepol-org {
-  /* Cor azul-escura do cabeçalho e controles ativos. */
-  --navy: #0d2137;
-
   /* Dourado institucional utilizado nos nós principais. */
   --gold: #b89535;
 
@@ -83,7 +80,7 @@
  * Barra superior contendo o título e o decreto.
  */
 #sepol-org .head {
-  background: var(--navy);
+  background: var(--black);
   color: #ffffff;
 
   border-bottom: 3px solid var(--gold);
@@ -160,7 +157,7 @@
   border-radius: 4px;
 
   background: #ffffff;
-  color: var(--navy);
+  color: var(--black);
 
   padding: 7px 12px;
 
@@ -181,7 +178,7 @@
  * Indica visualmente qual modo de visualização está ativo.
  */
 #sepol-org .controls button[aria-pressed='true'] {
-  background: var(--navy);
+  background: var(--black);
   color: #ffffff;
 }
 
@@ -987,20 +984,6 @@
 
 
 /**
- * Estilo de summary caso sejam utilizados elementos details.
- */
-#sepol-org details.vitem > summary {
-  cursor: pointer;
-
-  padding: 4px 0;
-
-  list-style: revert;
-
-  font-weight: 600;
-}
-
-
-/**
  * Cabeçalho de cada item vertical:
  * botão da unidade + botão expandir/recolher.
  */
@@ -1085,7 +1068,7 @@
    * Mantém a faixa superior fazendo parte da geometria
    * do próprio modal, preservando o espaçamento do cabeçalho.
    */
-  border-top: 5px solid var(--navy);
+  border-top: 5px solid var(--black);
 
   /*
    * O raio precisa ser maior que a espessura da borda superior
@@ -1137,7 +1120,7 @@
 
   margin: 0;
 
-  color: var(--navy);
+  color: var(--black);
 }
 
 
@@ -1185,7 +1168,7 @@
 #sepol-org .modal-close:hover {
   background: #f3f4f5;
   border-color: #aeb6bf;
-  color: var(--navy);
+  color: var(--black);
 }
 
 
@@ -1780,7 +1763,7 @@
 #sepol-org .info-label {
   flex: 0 0 auto;
 
-  color: var(--navy);
+  color: var(--black);
 
   font-weight: 700;
 }
