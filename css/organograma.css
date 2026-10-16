@@ -1590,7 +1590,26 @@
   }
 
 
+  /**
+  * No smartphone, permite que o organograma original utilize
+  * toda a altura calculada pelo JavaScript.
+  *
+  * A viewport deixa de possuir altura vertical limitada,
+  * fazendo com que a rolagem vertical seja realizada
+  * naturalmente pela própria página.
+  *
+  * overflow: auto continua preservando a rolagem horizontal
+  * quando o usuário aumentar o zoom além da largura disponível.
+  *
+  * O padding inferior reserva espaço para o texto auxiliar fixo.
+  */
   #sepol-org .viewport {
+    height: auto;
+
+    min-height: 0;
+
+    overflow: auto;
+
     padding-bottom: 56px;
   }
 
