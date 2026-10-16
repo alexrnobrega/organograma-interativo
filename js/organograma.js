@@ -2710,7 +2710,7 @@
    */
   function setScale(newScale) {
     scale = Math.max(
-      0.35,
+      0.25,
       Math.min(
         1.5,
         Math.round(
@@ -2921,7 +2921,7 @@
      */
     changeView('vertical');
 
-    setScale(0.75);
+    setScale(1.0);
   } else {
     /**
      * Em telas maiores, inicia pelo organograma original
