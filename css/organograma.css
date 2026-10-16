@@ -1549,36 +1549,36 @@
  */
  @media (max-width: 767px) {
 
-/**
- * Mantém o texto auxiliar visível no rodapé em smartphones.
- *
- * env(safe-area-inset-bottom) considera a área segura do iOS
- * e evita que o conteúdo fique encoberto pela interface inferior
- * do Safari em dispositivos compatíveis.
- */
-#sepol-org .hint {
-  position: fixed;
+  /**
+  * Mantém o texto auxiliar visível no rodapé em smartphones.
+  *
+  * env(safe-area-inset-bottom) considera a área segura do iOS
+  * e evita que o conteúdo fique encoberto pela interface inferior
+  * do Safari em dispositivos compatíveis.
+  */
+  #sepol-org .hint {
+    position: fixed;
 
-  left: 0;
-  right: 0;
+    left: 0;
+    right: 0;
 
-  bottom: env(safe-area-inset-bottom, 0px);
+    bottom: env(safe-area-inset-bottom, 0px);
 
-  z-index: 100;
+    z-index: 100;
 
-  padding:
-    8px
-    12px
-    calc(8px + env(safe-area-inset-bottom, 0px));
+    padding:
+      8px
+      12px
+      calc(8px + env(safe-area-inset-bottom, 0px));
 
-  background: #ffffff;
+    background: #ffffff;
 
-  border-top: 1px solid #dce3e9;
+    border-top: 1px solid #dce3e9;
 
-  text-align: center;
+    text-align: center;
 
-  box-shadow: 0 -2px 8px #00000012;
-}
+    box-shadow: 0 -2px 8px #00000012;
+  }
 
 
   /**
@@ -1668,6 +1668,18 @@
    */
   #sepol-org .modal-body .modal-tree-item {
     padding-left: 8px;
+  }
+
+
+  /**
+  * No smartphone, remove o deslocamento vertical aplicado
+  * ao caractere × no desktop.
+  *
+  * O Safari/iOS já posiciona o glifo corretamente no centro
+  * do botão quando o flexbox faz o alinhamento vertical.
+  */
+  #sepol-org .modal-close::before {
+    top: 0;
   }
 
 
