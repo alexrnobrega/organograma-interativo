@@ -1547,53 +1547,42 @@
 /**
  * Breakpoint utilizado para smartphones.
  */
-@media (max-width: 767px) {
+ */
+ @media (max-width: 767px) {
 
   /**
-   * Exibe textos específicos de mobile.
+   * Mantém o texto auxiliar fixo no rodapé da tela.
    */
-  #sepol-org .mobile-only {
-    display: inline;
-  }
+  #sepol-org .hint {
+    position: fixed;
 
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-  /**
-   * Reduz o padding do cabeçalho.
-   */
-  #sepol-org .head {
-    padding: 10px 12px;
-  }
+    z-index: 4;
 
-
-  /**
-   * Reduz ligeiramente o título institucional.
-   */
-  #sepol-org .head strong {
-    font-size: 13px;
-  }
-
-
-  /**
-   * Mantém os controles visíveis durante a navegação.
-   */
-  #sepol-org .controls {
-    position: sticky;
-
-    top: 0;
+    padding: 8px 12px;
 
     background: #ffffff;
 
-    z-index: 3;
+    border-top: 1px solid #dce3e9;
+
+    text-align: center;
   }
 
 
   /**
-   * Ajusta a altura do viewport no smartphone.
+   * Reserva espaço para que o conteúdo não fique
+   * escondido atrás do texto auxiliar fixo.
    */
-  #sepol-org .viewport {
-    height: 68dvh;
+  #sepol-org .vertical-view {
+    padding-bottom: 56px;
+  }
 
-    min-height: 320px;
+
+  #sepol-org .viewport {
+    padding-bottom: 56px;
   }
 
 
