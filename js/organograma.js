@@ -2939,12 +2939,14 @@
     ).matches
   ) {
     /**
-     * Em smartphones, inicia pela visualização vertical simplificada.
-     * O usuário continua podendo alternar para o organograma original.
+     * Em smartphones, inicia diretamente pelo organograma original
+     * e aplica o ajuste automático à largura disponível.
      */
-    changeView('vertical');
+    changeView('original');
 
-    setScale(1.0);
+    requestAnimationFrame(
+      fitToViewport,
+    );
   } else {
     /**
      * Em telas maiores, inicia pelo organograma original
