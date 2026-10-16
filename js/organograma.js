@@ -1433,7 +1433,7 @@
         'p',
         'note',
         modalBody,
-        'Não há unidades subordinadas.',
+        'Não há unidade subordinada.',
       );
     }
 
@@ -1555,7 +1555,7 @@
      */
     modalBody.scrollTop = 0;
 
-    
+
     /**
      * Libera novamente o scroll da página.
      */
@@ -2752,28 +2752,34 @@
     );
 
   /**
+   * Ajusta automaticamente o organograma original
+   * à largura disponível da viewport.
+   */
+  function fitToViewport() {
+    setScale(
+      Math.min(
+        1,
+        (
+          viewport.clientWidth -
+          12
+        ) / 1480,
+      ),
+    );
+
+    viewport.scrollTo({
+      left: 0,
+      top: 0,
+    });
+  }
+
+  /**
    * Ajusta automaticamente o organograma à largura disponível.
    */
   mount
     .querySelector('.zoom-reset')
     .addEventListener(
       'click',
-      () => {
-        setScale(
-          Math.min(
-            1,
-            (
-              viewport.clientWidth -
-              12
-            ) / 1480,
-          ),
-        );
-
-        viewport.scrollTo({
-          left: 0,
-          top: 0,
-        });
-      },
+      fitToViewport,
     );
 
   // ---------------------------------------------------------------------------
@@ -2844,10 +2850,27 @@
     }
   }
 
+  /**
+   * Exibe o organograma original.
+   *
+   * Em smartphones, aplica automaticamente o mesmo ajuste
+   * utilizado pelo botão "Ajustar", fazendo a prancheta
+   * caber na largura disponível.
+   */
   originalViewButton.addEventListener(
     'click',
     () => {
       changeView('original');
+
+      if (
+        matchMedia(
+          '(max-width: 767px)',
+        ).matches
+      ) {
+        requestAnimationFrame(
+          fitToViewport,
+        );
+      }
     },
   );
 
