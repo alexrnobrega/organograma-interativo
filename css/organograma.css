@@ -229,7 +229,7 @@
    * Altura máxima baseada no tamanho da janela.
    * Não ultrapassa 800px.
    */
-  height: min(77vh, 800px);
+  height: calc(100dvh - 170px);
 
   /**
    * Garante altura mínima aceitável.
@@ -253,6 +253,11 @@
    * Permite pan horizontal e vertical em dispositivos touch.
    */
   touch-action: pan-x pan-y;
+
+  /**
+   * Permite marcar exatamente o fim da área visualizável do organograma, ou seja, a borda inferior da .viewport.
+   */
+  border-bottom: 1px solid #dce3e9;
 }
 
 
@@ -1524,11 +1529,13 @@
  * Instrução de uso.
  */
 #sepol-org .hint {
-  font-size: 12px;
+  font-size: 14px;
 
   color: #516070;
 
-  padding: 6px 13px;
+  padding: 20px 13px;
+
+  text-align: center;
 }
 
 
