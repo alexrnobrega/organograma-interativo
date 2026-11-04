@@ -100,7 +100,7 @@
           {
             "id": "1.3",
             "code": "1.3",
-            "name": "Assessoria Especial",
+            "name": "Assessoria Especial de Relações Institucionais",
             "info": {
               "sigla": "AESP",
               "endereco": "Rua da Relação, 42 - 11º andar - sala 1107 - Centro, Rio de Janeiro - RJ, 20231-110",
@@ -115,7 +115,7 @@
               {
                 "id": "1.3.1",
                 "code": "1.3.1",
-                "name": "Assistência Parlamentar e Relações Institucionais",
+                "name": "Assistência de Acompanhamento Legislativo",
                 "children": []
               }
             ]
@@ -2621,7 +2621,7 @@
               {
                 "id": "3.9.1",
                 "code": "3.9.1",
-                "name": "04º Departamento de Polícia de Área",
+                "name": "4º Departamento de Polícia de Área",
                 "info": {
                   "sigla": "4º DPA",
                   "endereco": "Rua Desiderio de Oliveira, 33 - São Lourenço, Niterói - RJ 24030-310",
@@ -2842,24 +2842,6 @@
                   {
                     "id": "3.9.1.13",
                     "code": "3.9.1.13",
-                    "name": "118ª Delegacia de Polícia - Araruama",
-                    "info": {
-                      "sigla": "118ª DP",
-                      "endereco": "Rua Bernardo Vasconcelos, 755 - Centro, Araruama - RJ, 28970-000",
-                      "responsavel": "Delegado de Polícia Evaristo Pontes Magalhães",
-                      "telefones": [
-                        "(22) 2665-7886 / 2665-8403; / 2665-7758"
-                      ],
-                      "celulares": [
-                        "(22) 99202-4680 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.14",
-                    "code": "3.9.1.14",
                     "name": "119ª Delegacia de Polícia - Rio Bonito",
                     "info": {
                       "sigla": "119ª DP",
@@ -2874,8 +2856,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.1.15",
-                    "code": "3.9.1.15",
+                    "id": "3.9.1.14",
+                    "code": "3.9.1.14",
                     "name": "120ª Delegacia de Polícia - Silva Jardim",
                     "info": {
                       "sigla": "120ª DP",
@@ -2886,124 +2868,6 @@
                       ],
                       "celulares": [
                         "(22) 99225-7268 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.16",
-                    "code": "3.9.1.16",
-                    "name": "124ª Delegacia de Polícia - Saquarema",
-                    "info": {
-                      "sigla": "124ª DP",
-                      "endereco": "Rua Doutor Luiz Januário, 201 - Campo Aviacao, Saquarema - RJ, 28990-000",
-                      "responsavel": "Delegado de Polícia Vilson de Almeida Silva",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 98831-8042 / (22) 99223-4581"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.17",
-                    "code": "3.9.1.17",
-                    "name": "125ª Delegacia de Polícia - São Pedro da Aldeia",
-                    "info": {
-                      "sigla": "125ª DP",
-                      "endereco": "Rua Nossa Senhora de Fátima, 762 - Balneario São Pedro, São Pedro da Aldeia - RJ, 28940-000",
-                      "responsavel": "Delegado de Polícia Milton Siqueira Junior",
-                      "telefones": [
-                        "(22) 2625-5919 / 2625-5560 / 2621-8803 / 2621-8806"
-                      ],
-                      "celulares": [
-                        "(22) 98831-8041 / (22) 98831-8022 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.18",
-                    "code": "3.9.1.18",
-                    "name": "126ª Delegacia de Polícia - Cabo Frio",
-                    "info": {
-                      "sigla": "126ª DP",
-                      "endereco": "Rua Teixeira e Souza, s/n - Centro, Cabo Frio - RJ, 28907-410",
-                      "responsavel": "Delegado de Polícia Eduardo Teixeira Ozorio da Cruz",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 98831-8038 / 98831-8040 / (22) 99227-0409 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.19",
-                    "code": "3.9.1.19",
-                    "name": "127ª Delegacia de Polícia - Armação de Búzios",
-                    "info": {
-                      "sigla": "127ª DP",
-                      "endereco": "Avenida Parque, s/n - Village de Búzios, Búzios - RJ, 28950-000",
-                      "responsavel": "Delegado de Polícia Lauro Coelho Ferreira Neto",
-                      "telefones": [
-                        "(22) 2633-0059 / 2633-0732 / 2623-7316"
-                      ],
-                      "celulares": [
-                        "(22) 99219-2042 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.20",
-                    "code": "3.9.1.20",
-                    "name": "129ª Delegacia de Polícia - Iguaba Grande",
-                    "info": {
-                      "sigla": "129ª DP",
-                      "endereco": "Rua Profeta Jeremias, s/n - Estação, Iguaba Grande - RJ, 28960-000",
-                      "responsavel": "Delegada de Polícia Janaina Cristina Peregrino",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 99224-0400/ (22) 98831-8020 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.21",
-                    "code": "3.9.1.21",
-                    "name": "132ª Delegacia de Polícia - Arraial do Cabo",
-                    "info": {
-                      "sigla": "132ª DP",
-                      "endereco": "Rodovia General Bruno Martins, s/n - Centro, Arraial do Cabo - RJ, 28930-000",
-                      "responsavel": "Delegado de Polícia Fabio Consino Freire",
-                      "telefones": [
-                        "(22) 2622-4340 / 2622-4308"
-                      ],
-                      "celulares": [
-                        "(22) 98113-6585 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.1.22",
-                    "code": "3.9.1.22",
-                    "name": "159ª Delegacia de Polícia - Cachoeira de Macacu",
-                    "info": {
-                      "sigla": "159ª DP",
-                      "endereco": "Avenida Lord Baden Powel, 93 - Centro, Cachoeiras de Macacu - RJ, 28680-000",
-                      "responsavel": "Delegado de Polícia Ivailson Moreira Sardinha",
-                      "telefones": [],
-                      "celulares": [
-                        "(21) 98197-3112 (c/ WhatsApp)"
                       ],
                       "observacoes": []
                     },
@@ -3356,88 +3220,6 @@
                   {
                     "id": "3.9.3.1",
                     "code": "3.9.3.1",
-                    "name": "121ª Delegacia de Polícia - Casimiro de Abreu",
-                    "info": {
-                      "sigla": "121ª DP",
-                      "endereco": "Rua Geni da Cruz Leite, s/n - Centro, Casimiro de Abreu - RJ, 28860-000",
-                      "responsavel": "Delegada de Polícia Carla Conceição Guimarães Tavares",
-                      "telefones": [
-                        "(22 ) 2778-4511 / 2778-5873 / 2778-5520 / 2778-5679"
-                      ],
-                      "celulares": [
-                        "(22) 99201-2299 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.3.2",
-                    "code": "3.9.3.2",
-                    "name": "122ª Delegacia de Polícia - Conceição de Macabu",
-                    "info": {
-                      "sigla": "122ª DP",
-                      "endereco": "Rua Plácido Freire, 72 - Vila Nova, Conceição de Macabu - RJ, 28740-000",
-                      "responsavel": "Delegado de Polícia Ruchester Marreiros Barbosa",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 98831-8044 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.3.3",
-                    "code": "3.9.3.3",
-                    "name": "123ª Delegacia de Polícia - Macaé",
-                    "info": {
-                      "sigla": "123ª DP",
-                      "endereco": "Rua São João, 35 - Centro, Macaé - RJ, 27913-070",
-                      "responsavel": "Delegado de Polícia Pedro Emílio de Souza Braga",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 98831-8043 (c/ WhatsApp) / (22) 99202-3908 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.3.4",
-                    "code": "3.9.3.4",
-                    "name": "128ª Delegacia de Polícia - Rio das Ostras",
-                    "info": {
-                      "sigla": "128ª DP",
-                      "endereco": "Avenida Jane Maria Martins Figueira, s/n - Jardim Mariléa, Rio das Ostras - RJ, 28890-000",
-                      "responsavel": "Delegado de Polícia Luis Mauricio Armond Campos",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 97402-7118 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.3.5",
-                    "code": "3.9.3.5",
-                    "name": "130ª Delegacia de Polícia - Quissamã",
-                    "info": {
-                      "sigla": "130ª DP",
-                      "endereco": "Estrada do Correio Imperial, 1073 - Piteiras, Quissamã - RJ, 28735-000",
-                      "responsavel": "Delegado de Polícia Raul Gustavo Morgado",
-                      "telefones": [],
-                      "celulares": [
-                        "(22) 99218-8956 (c/ WhatsApp)"
-                      ],
-                      "observacoes": []
-                    },
-                    "children": []
-                  },
-                  {
-                    "id": "3.9.3.6",
-                    "code": "3.9.3.6",
                     "name": "134ª Delegacia de Polícia - Campos",
                     "info": {
                       "sigla": "134ª DP",
@@ -3452,8 +3234,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.7",
-                    "code": "3.9.3.7",
+                    "id": "3.9.3.2",
+                    "code": "3.9.3.2",
                     "name": "135ª Delegacia de Polícia - Itaocara",
                     "info": {
                       "sigla": "135ª DP",
@@ -3468,8 +3250,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.8",
-                    "code": "3.9.3.8",
+                    "id": "3.9.3.3",
+                    "code": "3.9.3.3",
                     "name": "136ª Delegacia de Polícia - Santo Antônio de Pádua",
                     "info": {
                       "sigla": "136ª DP",
@@ -3484,8 +3266,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.9",
-                    "code": "3.9.3.9",
+                    "id": "3.9.3.4",
+                    "code": "3.9.3.4",
                     "name": "137ª Delegacia de Polícia - Miracema",
                     "info": {
                       "sigla": "137ª DP",
@@ -3500,8 +3282,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.10",
-                    "code": "3.9.3.10",
+                    "id": "3.9.3.5",
+                    "code": "3.9.3.5",
                     "name": "138ª Delegacia de Polícia - Laje do Muriaé",
                     "info": {
                       "sigla": "138ª DP",
@@ -3516,8 +3298,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.11",
-                    "code": "3.9.3.11",
+                    "id": "3.9.3.6",
+                    "code": "3.9.3.6",
                     "name": "139ª Delegacia de Polícia - Porciúncula",
                     "info": {
                       "sigla": "139ª DP",
@@ -3532,8 +3314,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.12",
-                    "code": "3.9.3.12",
+                    "id": "3.9.3.7",
+                    "code": "3.9.3.7",
                     "name": "140ª Delegacia de Polícia - Natividade",
                     "info": {
                       "sigla": "140ª DP",
@@ -3548,8 +3330,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.13",
-                    "code": "3.9.3.13",
+                    "id": "3.9.3.8",
+                    "code": "3.9.3.8",
                     "name": "141ª Delegacia de Polícia - São Fidelis",
                     "info": {
                       "sigla": "141ª DP",
@@ -3564,8 +3346,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.14",
-                    "code": "3.9.3.14",
+                    "id": "3.9.3.9",
+                    "code": "3.9.3.9",
                     "name": "142ª Delegacia de Polícia - Cambuci",
                     "info": {
                       "sigla": "142ª DP",
@@ -3580,8 +3362,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.15",
-                    "code": "3.9.3.15",
+                    "id": "3.9.3.10",
+                    "code": "3.9.3.10",
                     "name": "143ª Delegacia de Polícia - Itaperuna",
                     "info": {
                       "sigla": "143ª DP",
@@ -3596,8 +3378,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.16",
-                    "code": "3.9.3.16",
+                    "id": "3.9.3.11",
+                    "code": "3.9.3.11",
                     "name": "144ª Delegacia de Polícia - Bom Jesus do Itabapoana",
                     "info": {
                       "sigla": "144ª DP",
@@ -3612,8 +3394,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.17",
-                    "code": "3.9.3.17",
+                    "id": "3.9.3.12",
+                    "code": "3.9.3.12",
                     "name": "145ª Delegacia de Polícia - São João da Barra",
                     "info": {
                       "sigla": "145ª DP",
@@ -3628,8 +3410,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.18",
-                    "code": "3.9.3.18",
+                    "id": "3.9.3.13",
+                    "code": "3.9.3.13",
                     "name": "146ª Delegacia de Polícia - Guarus",
                     "info": {
                       "sigla": "146ª DP",
@@ -3644,8 +3426,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.19",
-                    "code": "3.9.3.19",
+                    "id": "3.9.3.14",
+                    "code": "3.9.3.14",
                     "name": "147ª Delegacia de Polícia - São Francisco de Itabapoana",
                     "info": {
                       "sigla": "147ª DP",
@@ -3660,8 +3442,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.20",
-                    "code": "3.9.3.20",
+                    "id": "3.9.3.15",
+                    "code": "3.9.3.15",
                     "name": "148ª Delegacia de Polícia - Italva",
                     "info": {
                       "sigla": "148ª DP",
@@ -3678,8 +3460,8 @@
                     "children": []
                   },
                   {
-                    "id": "3.9.3.21",
-                    "code": "3.9.3.21",
+                    "id": "3.9.3.16",
+                    "code": "3.9.3.16",
                     "name": "155ª Delegacia de Polícia - São Sebastião do Alto",
                     "info": {
                       "sigla": "155ª DP",
@@ -3983,6 +3765,231 @@
                       "observacoes": []
                     },
                     "children": []
+                  },
+                  {
+                    "id": "3.9.4.17",
+                    "code": "3.9.4.17",
+                    "name": "159ª Delegacia de Polícia - Cachoeira de Macacu",
+                    "info": {
+                      "sigla": "159ª DP",
+                      "endereco": "Avenida Lord Baden Powel, 93 - Centro, Cachoeiras de Macacu - RJ, 28680-000",
+                      "responsavel": "Delegado de Polícia Ivailson Moreira Sardinha",
+                      "telefones": [],
+                      "celulares": [
+                        "(21) 98197-3112 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "id": "3.9.5",
+                "code": "3.9.5",
+                "name": "8º Departamento de Polícia de Área",
+                "children": [
+                  {
+                    "id": "3.9.5.1",
+                    "code": "3.9.5.1",
+                    "name": "118ª Delegacia de Polícia - Araruama",
+                    "info": {
+                      "sigla": "118ª DP",
+                      "endereco": "Rua Bernardo Vasconcelos, 755 - Centro, Araruama - RJ, 28970-000",
+                      "responsavel": "Delegado de Polícia Evaristo Pontes Magalhães",
+                      "telefones": [
+                        "(22) 2665-7886 / 2665-8403; / 2665-7758"
+                      ],
+                      "celulares": [
+                        "(22) 99202-4680 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.2",
+                    "code": "3.9.5.2",
+                    "name": "121ª Delegacia de Polícia - Casimiro de Abreu",
+                    "info": {
+                      "sigla": "121ª DP",
+                      "endereco": "Rua Geni da Cruz Leite, s/n - Centro, Casimiro de Abreu - RJ, 28860-000",
+                      "responsavel": "Delegada de Polícia Carla Conceição Guimarães Tavares",
+                      "telefones": [
+                        "(22 ) 2778-4511 / 2778-5873 / 2778-5520 / 2778-5679"
+                      ],
+                      "celulares": [
+                        "(22) 99201-2299 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.3",
+                    "code": "3.9.5.3",
+                    "name": "122ª Delegacia de Polícia - Conceição de Macabu",
+                    "info": {
+                      "sigla": "122ª DP",
+                      "endereco": "Rua Plácido Freire, 72 - Vila Nova, Conceição de Macabu - RJ, 28740-000",
+                      "responsavel": "Delegado de Polícia Ruchester Marreiros Barbosa",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 98831-8044 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.4",
+                    "code": "3.9.5.4",
+                    "name": "123ª Delegacia de Polícia - Macaé",
+                    "info": {
+                      "sigla": "123ª DP",
+                      "endereco": "Rua São João, 35 - Centro, Macaé - RJ, 27913-070",
+                      "responsavel": "Delegado de Polícia Pedro Emílio de Souza Braga",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 98831-8043 (c/ WhatsApp) / (22) 99202-3908 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.5",
+                    "code": "3.9.5.5",
+                    "name": "124ª Delegacia de Polícia - Saquarema",
+                    "info": {
+                      "sigla": "124ª DP",
+                      "endereco": "Rua Doutor Luiz Januário, 201 - Campo Aviacao, Saquarema - RJ, 28990-000",
+                      "responsavel": "Delegado de Polícia Vilson de Almeida Silva",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 98831-8042 / (22) 99223-4581"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.6",
+                    "code": "3.9.5.6",
+                    "name": "125ª Delegacia de Polícia - São Pedro da Aldeia",
+                    "info": {
+                      "sigla": "125ª DP",
+                      "endereco": "Rua Nossa Senhora de Fátima, 762 - Balneario São Pedro, São Pedro da Aldeia - RJ, 28940-000",
+                      "responsavel": "Delegado de Polícia Milton Siqueira Junior",
+                      "telefones": [
+                        "(22) 2625-5919 / 2625-5560 / 2621-8803 / 2621-8806"
+                      ],
+                      "celulares": [
+                        "(22) 98831-8041 / (22) 98831-8022 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.7",
+                    "code": "3.9.5.7",
+                    "name": "126ª Delegacia de Polícia - Cabo Frio",
+                    "info": {
+                      "sigla": "126ª DP",
+                      "endereco": "Rua Teixeira e Souza, s/n - Centro, Cabo Frio - RJ, 28907-410",
+                      "responsavel": "Delegado de Polícia Eduardo Teixeira Ozorio da Cruz",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 98831-8038 / 98831-8040 / (22) 99227-0409 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.8",
+                    "code": "3.9.5.8",
+                    "name": "127ª Delegacia de Polícia - Armação de Búzios",
+                    "info": {
+                      "sigla": "127ª DP",
+                      "endereco": "Avenida Parque, s/n - Village de Búzios, Búzios - RJ, 28950-000",
+                      "responsavel": "Delegado de Polícia Lauro Coelho Ferreira Neto",
+                      "telefones": [
+                        "(22) 2633-0059 / 2633-0732 / 2623-7316"
+                      ],
+                      "celulares": [
+                        "(22) 99219-2042 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.9",
+                    "code": "3.9.5.9",
+                    "name": "128ª Delegacia de Polícia - Rio das Ostras",
+                    "info": {
+                      "sigla": "128ª DP",
+                      "endereco": "Avenida Jane Maria Martins Figueira, s/n - Jardim Mariléa, Rio das Ostras - RJ, 28890-000",
+                      "responsavel": "Delegado de Polícia Luis Mauricio Armond Campos",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 97402-7118 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.10",
+                    "code": "3.9.5.10",
+                    "name": "129ª Delegacia de Polícia - Iguaba Grande",
+                    "info": {
+                      "sigla": "129ª DP",
+                      "endereco": "Rua Profeta Jeremias, s/n - Estação, Iguaba Grande - RJ, 28960-000",
+                      "responsavel": "Delegada de Polícia Janaina Cristina Peregrino",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 99224-0400/ (22) 98831-8020 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.11",
+                    "code": "3.9.5.11",
+                    "name": "130ª Delegacia de Polícia - Quissamã",
+                    "info": {
+                      "sigla": "130ª DP",
+                      "endereco": "Estrada do Correio Imperial, 1073 - Piteiras, Quissamã - RJ, 28735-000",
+                      "responsavel": "Delegado de Polícia Raul Gustavo Morgado",
+                      "telefones": [],
+                      "celulares": [
+                        "(22) 99218-8956 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "3.9.5.12",
+                    "code": "3.9.5.12",
+                    "name": "132ª Delegacia de Polícia - Arraial do Cabo",
+                    "info": {
+                      "sigla": "132ª DP",
+                      "endereco": "Rodovia General Bruno Martins, s/n - Centro, Arraial do Cabo - RJ, 28930-000",
+                      "responsavel": "Delegado de Polícia Fabio Consino Freire",
+                      "telefones": [
+                        "(22) 2622-4340 / 2622-4308"
+                      ],
+                      "celulares": [
+                        "(22) 98113-6585 (c/ WhatsApp)"
+                      ],
+                      "observacoes": []
+                    },
+                    "children": []
                   }
                 ]
               }
@@ -4041,7 +4048,7 @@
                   {
                     "id": "3.10.2.1",
                     "code": "3.10.2.1",
-                    "name": "Delegacia de Roubos e Furtos de Automóveis da Capital - DRFA/CAP",
+                    "name": "Delegacia de Roubos e Furtos de Automóveis - DRFA",
                     "info": {
                       "sigla": "DRFA",
                       "endereco": "Avenida Dom Hélder Câmara, 2066, Bloco 3 - Jacarezinho, Rio de Janeiro - RJ, 21050-452",
@@ -4112,7 +4119,7 @@
                   {
                     "id": "3.10.3.1",
                     "code": "3.10.3.1",
-                    "name": "Delegacia de Repressão a Entorpecentes da Capital - DRE/CAP",
+                    "name": "Delegacia de Repressão a Entorpecentes - DRE",
                     "info": {
                       "sigla": "DRE",
                       "endereco": "Avenida Dom Hélder Câmara, 2066, Bloco 3 - Jacarezinho, Rio de Janeiro - RJ, 21050-452",
@@ -4157,7 +4164,7 @@
                   {
                     "id": "3.10.4.1",
                     "code": "3.10.4.1",
-                    "name": "Delegacia de Roubos e Furtos de Cargas da Capital - DRFC/CAP",
+                    "name": "Delegacia de Roubos e Furtos de Cargas - DRFC",
                     "info": {
                       "sigla": "DRFC",
                       "endereco": "Avenida Dom Hélder Câmara, 2066, Bloco 3 - Jacarezinho, Rio de Janeiro - RJ, 21050-452",
@@ -4244,7 +4251,7 @@
               {
                 "id": "3.10.6",
                 "code": "3.10.6",
-                "name": "Divisão da Criança e do Adolescente Vítima - DVC AV",
+                "name": "Divisão da Criança e do Adolescente Vítima - DVCAV",
                 "children": [
                   {
                     "id": "3.10.6.1",
@@ -4262,6 +4269,12 @@
                       ],
                       "observacoes": []
                     },
+                    "children": []
+                  },
+                  {
+                    "id": "3.10.6.2",
+                    "code": "3.10.6.2",
+                    "name": "Delegacia da Criança e do Adolescente Vítima da Baixada Fluminense - DCAV-BF",
                     "children": []
                   }
                 ]
@@ -5330,7 +5343,7 @@
       {
         "id": "5",
         "code": "5",
-        "name": "Subsecretaria de Estado de Polícia Técnico-Científica",
+        "name": "Subsecretaria de Polícia Técnico-Científica",
         "info": {
           "sigla": null,
           "endereco": "Rua da Relação, 42 - 12º andar - Centro, Rio de Janeiro - RJ, 20231-110",
@@ -6114,7 +6127,7 @@
                     "name": "Posto Regional de Polícia Técnico-Científica de Niterói",
                     "info": {
                       "sigla": "PRPTC",
-                      "endereco": "Travessa Comandante Garcia D'Ávila, 51 - Santana, Niterói - RJ, 24110-004",
+                      "endereco": "Travessa Comandante Garcia D\u0027Ávila, 51 - Santana, Niterói - RJ, 24110-004",
                       "responsavel": "Marcio Pereira de Carvalho",
                       "telefones": [
                         "3601-6929 / 3601-6956 / 3601-6047 / 3601-6913"
