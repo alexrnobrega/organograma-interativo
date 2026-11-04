@@ -455,12 +455,22 @@
 
     /**
      * Departamento-Geral de Polícia do Interior.
+     *
+     * Exibe:
+     * - 4º Departamento de Polícia de Área;
+     * - 5º Departamento de Polícia de Área;
+     * - 6º Departamento de Polícia de Área;
+     * - 7º Departamento de Polícia de Área;
+     * - 8º Departamento de Polícia de Área.
+     *
+     * As delegacias permanecem disponíveis integralmente no modal.
      */
     '3.9': [
       '3.9.1',
       '3.9.2',
       '3.9.3',
       '3.9.4',
+      '3.9.5',
     ],
 
     /**
@@ -786,6 +796,7 @@
     '3.9.2', // 5º Departamento de Polícia de Área
     '3.9.3', // 6º Departamento de Polícia de Área
     '3.9.4', // 7º Departamento de Polícia de Área
+    '3.9.5', // 8º Departamento de Polícia de Área
   ]);
 
   /**
