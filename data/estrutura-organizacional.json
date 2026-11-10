@@ -3784,11 +3784,19 @@
                   }
                 ]
               },
-              {
-                "id": "3.9.5",
-                "code": "3.9.5",
-                "name": "8º Departamento de Polícia de Área",
-                "children": [
+                {
+                  "id": "3.9.5",
+                  "code": "3.9.5",
+                  "name": "8º Departamento de Polícia de Área",
+                  "info": {
+                    "sigla": null,
+                    "endereco": "Av. Henrique Terra, 1260 - Portinho, Cabo Frio - RJ, 28911-320",
+                    "responsavel": "Delegada de Polícia Carla Mariana Mero Ferrão",
+                    "telefones": [],
+                    "celulares": [],
+                    "observacoes": []
+                  },
+                  "children": [
                   {
                     "id": "3.9.5.1",
                     "code": "3.9.5.1",
